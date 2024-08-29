@@ -9,11 +9,6 @@ from datetime import datetime
 
 from helpers import apology, login_required
 
-#Github: racaz
-#edX: raheq_a
-#Location: Newcastle, UK
-#Date: 25/08/2024
-
 # Configure application
 app = Flask(__name__)
 
