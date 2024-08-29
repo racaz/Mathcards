@@ -1,0 +1,105 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+.center{
+    text-align: center;
+}
+
+body{
+    background-color: #020430;
+    color: white;
+}
+
+.dynamicTextarea {
+    overflow: hidden;
+    min-height: 50px; /* Minimum height */
+    resize: none; /* Prevents manual resizing */
+}
+
+.width {
+    width: 100%;
+    padding: 10px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+
+select {
+    max-width: 90%; /* Maximum width for the dropdown */
+    padding: 5px;
+    overflow: hidden; /* Prevent overflow */
+    white-space: nowrap; /* Prevent text from wrapping */
+    text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+}
+
+input[type="text"], textarea {
+    color: white; /* Change text color to white */
+    background-color: #020430; /* Change background color to dark blue */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+input[type="password"] {
+    color: white; /* Change text color to white */
+    background-color: #020430; /* Change background color to dark blue */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+select[type="submit"], button {
+    color: white; /* Change text color to white */
+    background-color: #020430; /* Change background color to dark blue */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+#white {
+    color: white;
+}
+
+.cursive {
+    font-family: cursive;
+}
+
+.deck-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    padding: 5px 0;
+}
+
+.inline-form {
+    display: inline-block;
+    margin-right: 10px; /* Adds space between the buttons */
+}
+

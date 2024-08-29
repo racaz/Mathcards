@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Revision
+{% endblock %}
+
+{% block main %}
+     <div class="center">
+        <h1>{{ card.front }}</h1>
+        <br>
+        <br>
+
+        <form action="/revision" method="post">
+
+            {% if not checked %}
+                <input name="check" type="submit">
+            {% else %}
+                <h1>{{ card.back }}</h1>
+                <br>
+                <br>
+                <input name="next" type="submit">
+            {% endif %}
+
+            </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Adding Cards
+{% endblock %}
+
+{% block main %}
+
+    <div id="symbols-container"></div>
+
+    <br>
+
+    <form action="/add" method="post">
+        <label for="decks">Deck</label>
+        <select name="decks" type="submit">
+            {% for deck in decks %}
+                <option value="{{ deck.deck }}">{{ deck.deck }}</option>
+            {% endfor %}
+        </select>
+
+        <br>
+        <br>
+
+        <div class="dynamicTextarea">
+            <textarea id="front" class="width" type="text" style="height:100px" autofocus autocomplete="off" name="front" placeholder="Front" required></textarea>
+
+            <br>
+            <br>
+
+            <textarea id="back" class="width" type="text" style="height: 300px" autocomplete="off" name="back" placeholder="Back" required></textarea>
+
+            <br>
+
+            <button type="submit">Add</button>
+        </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>
+
+            var targetTextArea = 'front';
+            var searching = false;
+
+            document.addEventListener('DOMContentLoaded', function() {
+                let Frontinput = document.querySelector('textarea[name="front"]');
+                let Backinput = document.querySelector('textarea[name="back"]');
+                let container = document.getElementById('symbols-container');
+
+
+                Frontinput.addEventListener('input', async function(event) {
+                    targetTextArea = 'front';
+                    if (Frontinput.value.slice(-1) === '\\') {
+                        searching = true;
+                    }
+                    if (Frontinput.value.slice(-1) === ' '){
+                        searching = false;
+                    }
+
+                    let response = await fetch('/maths?q=' + encodeURIComponent(Frontinput.value.slice(-1)));
+                    let mathematics = await response.text();
+                    container.innerHTML = mathematics; // Display the rendered math
+
+                    MathJax.typeset();
+                });
+
+                Backinput.addEventListener('input', async function(event) {
+                    targetTextArea = 'back';
+                    if (Backinput.value.slice(-1) === '\\') {
+                        searching = true;
+                    }
+                    if (Backinput.value.slice(-1) === ' '){
+                        searching = false;
+                    }
+
+                    let response = await fetch('/maths?q=' + encodeURIComponent(Backinput.value.slice(-1)));
+                    let mathematics = await response.text();
+                    container.innerHTML = mathematics; // Display the rendered math
+
+
+
+                    // Ensure MathJax processes the newly added content
+                    MathJax.typeset();
+                });
+
+            });
+
+            async function postSymbol(symbol) {
+                console.log(targetTextArea);
+                console.log(symbol);
+                try {
+                    let response = await fetch('/symbol_click', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `symbol=${encodeURIComponent(symbol)}`
+                    });
+
+                    if (response.ok) {
+                        let answer = await response.text();
+                        console.log(`Symbol ${symbol} sent successfully!`);
+
+                        let inputFront = document.querySelector('textarea[name="front"]');
+                        let inputBack = document.querySelector('textarea[name="back"]');
+
+                        // Append LaTeX code to the textareas
+                        if (targetTextArea === 'front') {
+                            let word = await fetch('/maths?q=');
+                            let something = '\\' + await word.text();
+
+                            inputFront.value = inputFront.value.replace(something, '');
+                            inputFront.value += ` ${answer}`;
+
+                        } else if (targetTextArea === 'back') {
+                            let word = await fetch('/maths?q=');
+                            let something = '\\' + await word.text();
+
+                            inputBack.value = inputBack.value.replace(something, '');
+                            inputBack.value += ` ${answer}`;
+                        }
+
+
+                        // Ensure MathJax processes the newly added content in the output container
+                        MathJax.typesetPromise().then(() => {
+                            console.log('MathJax typesetting complete!');
+                        }).catch((err) => console.log(err.message));
+                    } else {
+                        console.error('Error sending symbol');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        </script>
+{% endblock %}

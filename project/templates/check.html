@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Confirm
+{% endblock %}
+
+{% block main %}
+    <h1>Are you sure you would like to delete "{{ deck }}"</h1>
+    <br>
+    <h1>All cards in that deck will also be deleted forever</h1>
+    <div class="confirmation">
+        <form action="/check" method="post" class="inline-form">
+            <input name="yes" type="hidden" value="yes">
+            <button type="submit">Yes</button>
+        </form>
+
+        <form action="/check" method="post" class="inline-form">
+            <input name="no" type="hidden" value="no">
+            <button type="submit">No</button>
+        </form>
+    </div>
+
+{% endblock %}

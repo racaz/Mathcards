@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block main %}
+
+    <form action="/searching">
+        <input name="front" type="text" autofocus autocomplete="off" placeholder="Search">
+    </form>
+
+    <br>
+
+    <form action="/search" method="post">
+        <select name="cards" type="submit">
+            {% for card in cards %}
+                <option value={{card.id}}>Front: {{ card.front }} <br> Back: {{ card.back }}</option>
+            {% endfor %}
+        </select>
+        <button type="search">Select</button>
+    </form>
+
+
+    <script>
+        let input = document.querySelector('input[name="front"]');
+
+        input.addEventListener('input', async function() {
+            console.log(input.value)
+            let response = await fetch('/searching?q=' + encodeURIComponent(input.value));
+            let cards = await response.text();
+            document.querySelector('select').innerHTML = cards;
+        });
+    </script>
+
+    <br>
+    <br>
+
+
+    <form action="/search" method="post">
+
+        <label for="decks">Deck</label>
+        <select name="decks" type="submit">
+            {% for deck in decks %}
+                <option value={{deck}}>{{ deck }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+
+{% endblock %}
+

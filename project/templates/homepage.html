@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+
+    <div class="d-inline-block text-start">
+        <h1>Decks</h1>
+        <ul>
+            {% for deck in decks %}
+            <li class="deck-item">
+                <span>{{ deck.deck }}</span>
+                <form action="/delete_deck" method="post">
+                    <input name="deleted_deck" type="hidden" value="{{ deck.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+    <form action="/" method="post">
+        <input autofocus autocomplete="off" name="deck" placeholder="New Deck" required>
+        <button type="submit">Add</button>
+    </form>
+{% endblock %}

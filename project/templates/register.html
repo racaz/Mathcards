@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post">
+
+        <div class="d-inline-block text-start">
+            <input autofocus autocomplete="off" type="text" name="username" placeholder="Username" required>
+            <br>
+            <br>
+            <input autocomplete="off" type="password" name="password" placeholder="Password" required>
+            <br>
+            <br>
+            <input autcomplete="off" type="password" name="confirmation" placeholder="Confirm Password" required>
+            <button type="submit">Submit</button>
+        </div>
+
+    </form>
+{% endblock %}
